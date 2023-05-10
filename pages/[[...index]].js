@@ -190,7 +190,9 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-  const API_BASE_URL = "http://api.projecthero.in/gateway/public/anthro-build/portfolio";
+  const api_key = context.params.index[0];
+  const API_BASE_URL = "http://api.projecthero.in/gateway/public/" + api_key + "/portfolio";
+  console.log(API_BASE_URL);
   let data = '';
   await fetch(API_BASE_URL)
     .then((res) => res.json())
