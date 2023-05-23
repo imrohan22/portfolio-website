@@ -10,8 +10,8 @@ import dynamic from 'next/dynamic';
 
 // const inter = Inter({ subsets: ['latin'] });
 
-let Header, Construction, Specialization, Howwework, Whychooseus, Count, GetIntouch, Contactus, Footer, Product, Testimonial, PortFolio, Award, Team;
-let HeaderTemp2, FooterTemp2, HomeTemp2, HowweworkTemp2, WhychooseusTemp2, SpecializationTemp2, TeamTemp2, AwardTemp2, ContactusTemp2, TestimonialTemp2, GetIntouchTemp2, PortFolioTemp2, CountTemp2;
+let Header, Construction, Specialization, Howwework, Whychooseus, Count, GetIntouch, Contactus, Footer, Product, Testimonial, PortFolio, Award, Team, OurClient;
+let HeaderTemp2, FooterTemp2, HomeTemp2, HowweworkTemp2, WhychooseusTemp2, SpecializationTemp2, TeamTemp2, OurClient2, AwardTemp2, ContactusTemp2, TestimonialTemp2, GetIntouchTemp2, PortFolioTemp2, CountTemp2;
 
 export default function Home(props) {
   const router = useRouter();
@@ -48,6 +48,7 @@ export default function Home(props) {
     PortFolio = dynamic(() => import('../component/Portfolio'), { ssr: false });
     Award = dynamic(() => import('../component/Award'));
     Team = dynamic(() => import('../component/Team'));
+    OurClient = dynamic(() => import('../component/Ourclient'));
 
   }
   else {
@@ -59,6 +60,7 @@ export default function Home(props) {
     WhychooseusTemp2 = dynamic(() => import('../component-template-2/Whychooseus'));
     SpecializationTemp2 = dynamic(() => import('../component-template-2/Specialization'));
     TeamTemp2 = dynamic(() => import('../component-template-2/Team'));
+    OurClient2 = dynamic(() => import('../component-template-2/Ourclient'));
     AwardTemp2 = dynamic(() => import('../component-template-2/Award'));
     ContactusTemp2 = dynamic(() => import('../component-template-2/Contactus'));
     TestimonialTemp2 = dynamic(() => import('../component-template-2/Testiminial'));
@@ -115,6 +117,9 @@ export default function Home(props) {
           {landingPageData.viewData?.team &&
             <Team ourTeamData={landingPageData.viewData.team} />
           }
+          {landingPageData.viewData?.otherClientLogos &&
+            <OurClient ourClientData={landingPageData.viewData.otherClientLogos} />
+          }
           {landingPageData.viewData?.awards &&
             <Award awardData={landingPageData.viewData.awards} />
           }
@@ -161,6 +166,9 @@ export default function Home(props) {
           {landingPageData.viewData?.team &&
             <TeamTemp2 ourTeamData={landingPageData.viewData.team} />
           }
+          {landingPageData.viewData?.otherClientLogos &&
+            <OurClient2 ourClientData={landingPageData.viewData.otherClientLogos} />
+          }
           {landingPageData.viewData?.awards &&
             <AwardTemp2 awardData={landingPageData.viewData.awards} />
           }
@@ -192,7 +200,6 @@ export default function Home(props) {
 export async function getServerSideProps(context) {
   const api_key = context.params.index[0];
   const API_BASE_URL = "http://api.projecthero.in/gateway/public/" + api_key + "/portfolio";
-  console.log(API_BASE_URL);
   let data = '';
   await fetch(API_BASE_URL)
     .then((res) => res.json())
